@@ -1,9 +1,8 @@
-# Thesis: Adversarial Robustness of LLaDA (Masked Diffusion LLM)
+# Thesis: Adversarial Attacks on Diffusion Models
 
 Code accompanying the thesis investigating adversarial attacks and robustness
 properties of [LLaDA](https://huggingface.co/GSAI-ML/LLaDA-8B-Instruct), a
-masked discrete diffusion language model, compared against autoregressive
-baselines (Llama-3).
+masked discrete diffusion language model.
 
 ## Repository structure
 
@@ -79,8 +78,7 @@ src/
    EOS/EOT to force non-termination, on LLaDA and on Llama-3 (autoregressive)
    for comparison.
 4. **GCG-style prefix insertion** (`src/gcg_complete/`) — multi-position
-   joint-search token insertion attack (à la Zou et al. 2023 / Neyroud &
-   Corley arXiv:2601.14266), run across 4 combinations of model
+   joint-search token insertion attack run across 4 combinations of model
    (Base/Instruct) and loss (natural-order cost / official MC-reweighted
    NLL).
 
@@ -98,31 +96,14 @@ variant folder instead — see each `prefix_run_worker.py`).
 
 Most entry scripts auto-download AdvBench
 (`llm-attacks/llm-attacks/main/data/advbench/harmful_behaviors.csv`) to
-`data/advbench.csv` on first run. A few scripts (`talkative_attack*.py`,
-`gcg_complete/*/prefix_run_worker.py`) assume this file already exists —
-run an experiment-1 or experiment-2 script first, or download it manually,
-before running those.
-
+`data/advbench.csv` on first run.
 ## Notes on running this code
 
-This repo documents the code **as used** on the compute environment
-(Isambard) it was developed on, not a guaranteed-portable package:
+1. This repo documents the code **as used** on the compute environment
+(Isambard) it was developed on, not a guaranteed-portable package.
 
-- `sys.path.insert(0, "src")` plus flat imports (e.g.
-  `from llada_wrapper import LLADAWrapper`) assume scripts are run from the
-  project root with `src/` — and, for experiment-specific files, their
-  subfolder — on the path. You will likely need to adjust `sys.path`
-  entries after moving files into the subfolder structure shown above.
-- Hardcoded `LOG_DIR` strings in experiment 4 (e.g.
-  `'logs/gcg_complete/base-natural'`) do not include the `new/` segment
-  used in this repo's folder layout, and may not match your local
-  `logs/` structure exactly. Update these constants to match wherever you
-  actually run from.
-- Some scripts (see `attack.py`, `prob_mass_utils.py`) reference each
-  other by relative import and are only used by specific experiments —
-  see the file list above for which experiment needs which files.
-- `meta-llama/Meta-Llama-3-8B-Instruct` (used in `talkative_attack_ar.py`)
-  is a gated HuggingFace model; a valid HF token/login is required.
-
-If you're setting this up to run yourself, expect to adjust paths — this
+2. If you're setting this up to run yourself, expect to adjust paths — this
 README documents intent and structure, not a plug-and-play pipeline.
+
+3. `meta-llama/Meta-Llama-3-8B-Instruct` (used in `talkative_attack_ar.py`)
+  is a gated HuggingFace model; a valid HF token/login is required.
