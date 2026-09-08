@@ -1,0 +1,8 @@
+# LLaDA requires transformers==4.38.2 (official repo requirement)
+transformers==4.38.2
+torch>=2.0.0
+numpy
+pandas
+pyyaml
+accelerate
+matplotlib==3.11.1
