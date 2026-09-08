@@ -3,7 +3,6 @@
 # ============================================================
 
 # Model
-#model_name: "inclusionAI/LLaDA-MoE-7B-A1B-Instruct"
 model_name: "GSAI-ML/LLaDA-8B-Instruct"
 device: "cuda"
 use_chat_template: true   # set false if using Base model
@@ -15,10 +14,7 @@ seed: 42
 
 # Attack
 kappa: 1.0e-5             # minimal margin above flip threshold
-attack_ratio: 0.20        # attack first 20% of diffusion steps
+attack_ratio: 1.0        # attack every diffusion step
 
 # Logging
 log_dir: "logs"
-
-# Prompt (override here or in code)
-prompt: "Write a professional email reminding users to update their account contact information."
